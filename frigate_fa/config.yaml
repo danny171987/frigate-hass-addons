@@ -42,7 +42,13 @@ tmpfs: true
 video: true
 full_access: true
 privileged:
-  - PERFMON
+  - SYS_ADMIN
+  - SYS_RAWIO
+  - DAC_READ_SEARCH
+devices:
+  - /dev/rknn:/dev/rknn
+  - /dev/dri:/dev/dri
+  - /dev/dma_heap:/dev/dma_heap
 schema:
   plus_api_key: password?
   go2rtc_allow_arbitrary_exec: str?  
@@ -56,3 +62,4 @@ map:
   - "addon_config:rw"
   - "homeassistant_config:rw"
   - "ssl"
+  - "/proc/device-tree/compatible:/proc/device-tree/compatible:ro" # <--- AÑADE ESTO
