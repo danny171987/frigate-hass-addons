@@ -41,6 +41,8 @@ host_network: false
 tmpfs: true
 video: true
 full_access: true
+environment:
+  RKNN_SOC: rk3588
 privileged:
   - SYS_ADMIN
   - SYS_RAWIO
