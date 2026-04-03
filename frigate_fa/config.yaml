@@ -1,4 +1,4 @@
-nname: Frigate (Full Access) 3
+name: Frigate (Full Access) 3
 version: 0.17.1-rk
 breaking_versions:
   - 0.17.0
