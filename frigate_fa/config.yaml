@@ -1,4 +1,4 @@
-name: Frigate (Full Access)
+name: Frigate (Full Access) 2
 version: 0.17.1-rk
 breaking_versions:
   - 0.17.0
@@ -41,6 +41,7 @@ host_network: false
 tmpfs: true
 video: true
 full_access: true
+privileged: true
 environment:
   RKNN_SOC: rk3588
 privileged:
@@ -52,6 +53,7 @@ devices:
   - /dev/rknn:/dev/rknn
   - /dev/dri:/dev/dri
   - /dev/dma_heap:/dev/dma_heap
+  - /proc/device-tree/compatible:/proc/device-tree/compatible:ro
 schema:
   plus_api_key: password?
   go2rtc_allow_arbitrary_exec: str?  
