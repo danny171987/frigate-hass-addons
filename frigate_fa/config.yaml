@@ -45,6 +45,7 @@ privileged:
   - SYS_ADMIN
   - SYS_RAWIO
   - DAC_READ_SEARCH
+  - PERFMON
 devices:
   - /dev/rknn:/dev/rknn
   - /dev/dri:/dev/dri
@@ -62,4 +63,4 @@ map:
   - "addon_config:rw"
   - "homeassistant_config:rw"
   - "ssl"
-  - "/proc/device-tree/compatible:/proc/device-tree/compatible:ro" # <--- AÑADE ESTO
+  - "/proc/device-tree/compatible:/proc/device-tree/compatible:ro" 
