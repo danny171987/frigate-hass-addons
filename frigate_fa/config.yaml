@@ -10,7 +10,7 @@ panel_title: Frigate
 slug: frigate-fa
 description: NVR with realtime local object detection for IP cameras
 url: "https://github.com/blakeblackshear/frigate"
-image: ghcr.io/blakeblackshear/frigate:0.17.1-rk
+image: ghcr.io/blakeblackshear/frigate-rk:0.17.1
 startup: application
 boot: auto
 init: false
