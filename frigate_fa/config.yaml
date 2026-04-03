@@ -1,16 +1,9 @@
-name: Frigate (Full Access) 2
-version: 0.17.1-rk
-breaking_versions:
-  - 0.17.0
-  - 0.16.0
-  - 0.15.0
-  - 0.14.0
-panel_icon: "mdi:cctv"
-panel_title: Frigate
-slug: frigate-fa
-description: NVR with realtime local object detection for IP cameras
+name: "Frigate (Full Access) 3"
+version: "0.17.1-rk"
+slug: "frigate-fa"
+description: "NVR with realtime local object detection for RK3588 NPU"
 url: "https://github.com/blakeblackshear/frigate"
-image: ghcr.io/blakeblackshear/frigate
+image: "ghcr.io/blakeblackshear/frigate"
 startup: application
 boot: auto
 init: false
@@ -18,10 +11,36 @@ webui: "http://[HOST]:[PORT:5000]/"
 watchdog: "http://[HOST]:[PORT:5000]/"
 ingress: true
 ingress_port: 5000
-ingress_entry: /
-panel_admin: false
+panel_icon: "mdi:cctv"
 homeassistant_api: true
 hassio_api: true
+host_network: true
+tmpfs: true
+video: true
+full_access: true
+# Corregimos la sección privileged (solo una vez y como booleano o lista)
+privileged:
+  - SYS_ADMIN
+  - SYS_RAWIO
+  - DAC_READ_SEARCH
+  - PERFMON
+  - SETPCAP
+  - SYS_NICE
+# Las variables de entorno fuerzan a Frigate a saber qué chip usas
+environment:
+  RKNN_SOC: rk3588
+# Pasamos los dispositivos de hardware directamente
+devices:
+  - /dev/rknn:/dev/rknn
+  - /dev/dri:/dev/dri
+  - /dev/dma_heap:/dev/dma_heap
+# El secreto está en montar el árbol de dispositivos como un volumen
+map:
+  - "media:rw"
+  - "addon_config:rw"
+  - "homeassistant_config:rw"
+  - "ssl"
+  - "/proc/device-tree:/proc/device-tree:ro"
 ports:
   8555/tcp: 8555
   8555/udp: 8555
@@ -37,34 +56,11 @@ ports_description:
   8971/tcp: Authenticated Web interface
   5000/tcp: Unauthenticated Web interface (not required for Home Assistant Ingress)
   1984/tcp: go2rtc API
-host_network: false
-tmpfs: true
-video: true
-full_access: true
-privileged: true
-environment:
-  RKNN_SOC: rk3588
-privileged:
-  - SYS_ADMIN
-  - SYS_RAWIO
-  - DAC_READ_SEARCH
-  - PERFMON
-devices:
-  - /dev/rknn:/dev/rknn
-  - /dev/dri:/dev/dri
-  - /dev/dma_heap:/dev/dma_heap
-  - /proc/device-tree/compatible:/proc/device-tree/compatible:ro
-schema:
-  plus_api_key: password?
-  go2rtc_allow_arbitrary_exec: str?  
-services:
-  - "mqtt:want"
 arch:
   - amd64
   - aarch64
-map:
-  - "media:rw"
-  - "addon_config:rw"
-  - "homeassistant_config:rw"
-  - "ssl"
-  - "/proc/device-tree/compatible:/proc/device-tree/compatible:ro" 
+schema:
+  plus_api_key: password?
+  go2rtc_allow_arbitrary_exec: str?
+services:
+  - "mqtt:want"
